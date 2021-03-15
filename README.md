@@ -5,7 +5,7 @@ Built with React.
 ## Technologies
 
 Project is created with:
-React 17.0.1,
+React 17.0.1
 
 
 
