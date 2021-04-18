@@ -3,11 +3,8 @@ import RestaurantFinder from '../apis/RestaurantFinder';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 const AddReview = () => {
     const { id } = useParams();
-    const location = useLocation(); // s ovim dobijamo pathname tj adresu 
-    console.log(location);
+    const location = useLocation();
     const history = useHistory();
-    console.log(id);
-
     const [name, setName] = useState("");
     const [reviewText, setReviewText] = useState("");
     const [rating, setRating] = useState("Rating");
@@ -15,15 +12,15 @@ const AddReview = () => {
     const handleSubmitReview = async (e) => {
         e.preventDefault()
         try {
-            const response = await RestaurantFinder.post(`/${id}/addReview`, {
+            await RestaurantFinder.post(`/${id}/addReview`, {
                 name,
                 review: reviewText,
                 rating,
             });
-            history.push("/"); // s ovim dobijamo refrresh jer ga vraca na homepage
+            history.push("/");
             history.push(location.pathname);
         } catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
     return (
@@ -50,9 +47,7 @@ const AddReview = () => {
                     <label htmlFor="Review">Review</label>
                     <textarea value={reviewText} onChange={(e) => setReviewText(e.target.value)} id="Review" className="form-control"></textarea>
                 </div>
-                <button type="submit" onClick={handleSubmitReview} className="btn btn-primary">
-                    Submit
-                </button>
+                <button type="submit" onClick={handleSubmitReview} className="btn btn-primary"> Submit </button>
             </form>
         </div>
     )

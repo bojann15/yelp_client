@@ -10,6 +10,6 @@ const Home = () => {
             <RestaurantList />
         </div>
     )
-}
+};
 
 export default Home;

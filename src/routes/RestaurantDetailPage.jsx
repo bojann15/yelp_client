@@ -8,22 +8,16 @@ import AddReview from "../components/AddReview";
 
 const RestaurantDetailPage = () => {
     const { id } = useParams();
-    const { selectedRestaurant, setSelectedRestaurant } = useContext(
-        RestaurantsContext
-    );
-
+    const { selectedRestaurant, setSelectedRestaurant } = useContext(RestaurantsContext);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await RestaurantFinder.get(`/${id}`);
-                console.log(response);
-
                 setSelectedRestaurant(response.data.data);
             } catch (err) {
-                console.log(err);
+                console.error(err);
             }
         };
-
         fetchData();
     }, []);
     return (
@@ -36,9 +30,7 @@ const RestaurantDetailPage = () => {
                     <div className="text-center">
                         <StarRating rating={selectedRestaurant.restaurant.average_rating} />
                         <span className="text-warning ml-1">
-                            {selectedRestaurant.restaurant.count
-                                ? `(${selectedRestaurant.restaurant.count})`
-                                : "(0)"}
+                            {selectedRestaurant.restaurant.count ? `(${selectedRestaurant.restaurant.count})` : "(0)"}
                         </span>
                     </div>
                     <div className="mt-3">

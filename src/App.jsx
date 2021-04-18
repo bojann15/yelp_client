@@ -18,6 +18,6 @@ const App = () => {
             </div >
         </RestaurantsContextProvider>
     )
-}
+};
 
 export default App;

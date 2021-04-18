@@ -8,6 +8,5 @@ const UpdatePage = () => {
             <UpdateRestaurant />
         </div>
     )
-}
-
+};
 export default UpdatePage;

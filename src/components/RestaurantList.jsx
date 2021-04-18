@@ -3,42 +3,38 @@ import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import { useHistory } from 'react-router-dom';
 import StarRating from "./StarRating";
-const RestaurantList = (props) => {
+const RestaurantList = () => {
     const { restaurants, setRestaurants } = useContext(RestaurantsContext);
     let history = useHistory();
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await RestaurantFinder.get("/")
-                setRestaurants(response.data.data.restaurants)
+                const response = await RestaurantFinder.get("/");
+                setRestaurants(response.data.data.restaurants);
             } catch (err) {
-                console.log(err)
+                console.error(err);
             }
         };
         fetchData();
     }, []);
     const handleDelete = async (e, id) => {
-        e.stopPropagation() // s ovim postizemo da kad samo kliknemo na update i delete obavljamo funkciju update i delete a ne history push s kojim prelazimo na detail page 
+        e.stopPropagation();
         try {
-            const response = await RestaurantFinder.delete(`/${id} `);
+            await RestaurantFinder.delete(`/${id}`);
             setRestaurants(restaurants.filter((restaurant) => {
                 return restaurant.id !== id
-            }))
-
+            }));
         } catch (err) {
-            console.log(err)
-
+            console.error(err)
         }
-
-    }
-
+    };
     const handleUpdate = (e, id) => {
         e.stopPropagation();
-        history.push(`/restaurants/${id}/update`); // s ovim se predje na drugi tab update 
+        history.push(`/restaurants/${id}/update`);
     };
     const handleRestaurantSelect = (id) => {
-        history.push(`/restaurants/${id}`)
-    }
+        history.push(`/restaurants/${id}`);
+    };
     const renderRating = (restaurant) => {
         if (!restaurant.count) {
             return <span className="text-warning">0 reviews</span>
@@ -50,8 +46,6 @@ const RestaurantList = (props) => {
             </>
         );
     };
-
-
     return (
         <div className="list-group">
             <table className="table table-hover table-dark">
@@ -82,20 +76,9 @@ const RestaurantList = (props) => {
                             </tr>
                         )
                     })}
-
-                    {/*  <tr>
-                        <td>Mcdonalds</td>
-                        <td>New York</td>
-                        <td>$$</td>
-                        <td>Rating</td>
-                        <td>Mcdonalds</td>
-                        <td><button className="btn btn-warning">Update</button></td>
-                        <td><button className="btn btn-danger">Delete</button></td>
-                    </tr> */}
                 </tbody>
             </table>
-
         </div>
-    )
-}
+    );
+};
 export default RestaurantList;

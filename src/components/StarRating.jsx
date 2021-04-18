@@ -8,10 +8,9 @@ const StarRating = ({ rating }) => {
             stars.push(<i key={i} className="fas fa-star-half-alt text-warning"></i>);
         }
         else {
-            stars.push(<i key={i} className="far fa-star text-warning"></i>) //text waring dodamo jer s njim dobijamo da su zvezdice zute
+            stars.push(<i key={i} className="far fa-star text-warning"></i>)
         }
     }
     return <> {stars} </>
-
-}
+};
 export default StarRating;
